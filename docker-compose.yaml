@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: ./login-app-backend 
+      dockerfile: Dockerfile  
+    networks:
+      minha-rede-exam:
+        ipv4_address: 172.20.0.2  
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./login-app-frontend
+      dockerfile: Dockerfile 
+    networks:
+      minha-rede-exam:
+        ipv4_address: 172.20.0.3
+    ports:
+      - "80:80"
+
+networks:
+  minha-rede-exam:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
